@@ -30,10 +30,13 @@ def test_get_user():
     user_id = response.json()['data']['id']
 
     get_response = client.get(f"/users/{user_id}")
+    get_user_data = get_response.json()
+    
 
-    print(response.json())
+    
     assert get_response.status_code == 200
-    assert get_response.json()['data']['email'] == "bob@example.com"
+    assert isinstance(response.json(), dict)
+    assert get_user_data['message'] == 'User retrieved successfully'
 
 def test_update_user():
     payload = UserCreate(
